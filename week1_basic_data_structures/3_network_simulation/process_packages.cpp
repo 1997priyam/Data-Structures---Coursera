@@ -31,6 +31,28 @@ public:
 
     Response Process(const Request &request) {
         // write your code here
+        Response resp = Response(true, -1);
+        while(1){
+            if(!this->finish_time_.empty()){
+                if(this->finish_time_.front()<=request.arrival_time) this->finish_time_.pop();
+                else break;
+            }
+            else break;
+        }
+        if(this->finish_time_.size()<this->size_){
+            resp.dropped = false;
+            int completion_time;
+            if(this->finish_time_.empty()){
+                resp.start_time = request.arrival_time;
+                completion_time = request.arrival_time + request.process_time;
+            } 
+            else{
+                resp.start_time = this->finish_time_.back();
+                completion_time = this->finish_time_.back() + request.process_time;
+            } 
+            this->finish_time_.push(completion_time);
+        }
+        return resp;
     }
 private:
     int size_;
