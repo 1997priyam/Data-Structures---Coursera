@@ -18,9 +18,8 @@ class StackWithMax {
 
     void Push(int value) {
         stack.push_back(value);
-        if(maxStack.size()==0) maxStack.push_back(value);
-        else if(maxStack.back()<=value) maxStack.push_back(maxStack.back());
-        else maxStack.push_back(value);
+        if(maxStack.size()==0 || maxStack.back()<value) maxStack.push_back(value);
+        else maxStack.push_back(maxStack.back());
     }
 
     void Pop() {
@@ -31,7 +30,8 @@ class StackWithMax {
 
     int Max() const {
         assert(stack.size());
-        return *max_element(stack.begin(), stack.end());
+        // return *max_element(stack.begin(), stack.end());
+        return maxStack.back();
     }
 };
 
