@@ -71,7 +71,6 @@ class HeapBuilder {
     //
     // TODO: replace by a more efficient implementation
     // int size = data_.size()-1;
-    cout<<"The size of array is: "<<size<<std::endl;
     for(int i=parent(size); i>=1; i--){
       shiftDown(i);
     }
