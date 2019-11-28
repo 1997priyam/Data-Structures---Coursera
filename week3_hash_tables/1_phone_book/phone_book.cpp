@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <unordered_map>
 
 using std::string;
 using std::vector;
@@ -65,8 +66,25 @@ vector<string> process_queries(const vector<Query>& queries) {
         }
     return result;
 }
-
+vector<string> process_queries_new(const vector<Query>& queries){
+    vector<string> result;
+    std::unordered_map<int, string> phonebook;
+    for(auto query: queries){
+        if(query.type=="add"){
+            phonebook[query.number] = query.name;
+        }
+        else if(query.type=="find"){
+            string resp = "not found";
+            if(phonebook.find(query.number) != phonebook.end()) resp = phonebook[query.number];
+            result.push_back(resp);
+        }
+        else{
+            phonebook.erase(query.number);
+        }
+    }
+    return result;
+}
 int main() {
-    write_responses(process_queries(read_queries()));
+    write_responses(process_queries_new(read_queries()));
     return 0;
 }
