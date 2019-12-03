@@ -27,12 +27,33 @@ public:
     }
   }
 
+  void inorder(int root, vector<int> &result){
+    if(root==-1) return; 
+    inorder(left[root], result);
+    result.push_back(key[root]);
+    inorder(right[root], result);
+  }
+
+  void preorder(int root, vector<int> &result){
+    if(root==-1) return; 
+    result.push_back(key[root]);
+    preorder(left[root], result);
+    preorder(right[root], result);
+  }
+
+  void postorder(int root, vector<int> &result){
+    if(root==-1) return; 
+    postorder(left[root], result);
+    postorder(right[root], result);
+    result.push_back(key[root]);
+  }
+
 
   vector <int> in_order() {
     vector<int> result;
     // Finish the implementation
     // You may need to add a new recursive method to do that
-
+    inorder(0, result);
     return result;
   }
 
@@ -40,7 +61,7 @@ public:
     vector<int> result;    
     // Finish the implementation
     // You may need to add a new recursive method to do that
-    
+    preorder(0, result);
     return result;
   }
 
@@ -48,7 +69,7 @@ public:
     vector<int> result;
     // Finish the implementation
     // You may need to add a new recursive method to do that
-    
+    postorder(0, result);
     return result;
   }
 };
