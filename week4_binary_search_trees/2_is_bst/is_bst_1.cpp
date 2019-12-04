@@ -21,7 +21,7 @@ vector<Node> tree;
 void inorder_traversal(vector<int> &result, int root) {
     if (root == -1) return;
     inorder_traversal(result, tree[root].left);
-    result.push_back(root);
+    result.push_back(tree[root].key);
     inorder_traversal(result, tree[root].right);
 }
 
@@ -39,10 +39,8 @@ bool IsBinarySearchTree(const vector<Node>& tree) {
     // Implement correct algorithm here
     if (tree.size() > 1) {
         vector <int> v = in_order(tree);
-
-        for (int i = 0; i < v.size() - 1; i++) {
-            if (tree[v[i + 1]].key < tree[v[i]].key) return false;
-            if (tree[v[i]].key == tree[v[i + 1]].key && tree[v[i + 1]].left == v[i]) return false;
+        for (int i = 1; i < v.size(); i++) {
+            if (v[i] < v[i - 1]) return false;
         }
     }
     return true;
